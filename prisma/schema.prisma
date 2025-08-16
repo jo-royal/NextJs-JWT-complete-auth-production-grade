@@ -12,3 +12,24 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  password String
+  fname    String?
+  lname    String?
+  role     String   @default("user")
+  sessions Session[]
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  refreshToken String   @unique
+  userAgent    String?  // optional, e.g. "iPhone Safari"
+  createdAt    DateTime @default(now())
+  expiresAt    DateTime
+  user         User     @relation(fields: [userId], references: [id])
+}

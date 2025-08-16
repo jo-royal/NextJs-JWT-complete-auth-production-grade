@@ -11,4 +11,20 @@ This gives you enterprise-level session management with Next.js REST APIs + Pris
   - .env
 
 - remove below code from datasource db in /prisma/schema.prisma -- ignore if you want to manually track the file.
+
   - output = "../app/generated/prisma"
+
+- set up your db and .env, declare your 'DATABASE_URL'
+
+  - for this setup, i use docker, in /docker-compose.yml
+
+- declear user Model in /prisma/schema.prisma
+
+  - npx prisma migrate dev --name init
+
+- Create a prisma -db instance
+  - /lib/prisma.ts/
+
+Now lets get started with the fun!
+
+- Regitration.
