@@ -28,3 +28,8 @@ This gives you enterprise-level session management with Next.js REST APIs + Pris
 Now lets get started with the fun!
 
 - Regitration.
+  - npm i bcrypt
+  - npm i --save-dev @types/bcrypt
+  - with simple and well detailed code at /app/api/auth/register/route.ts
+  - Testing:
+    - /app/api/auth/register/
