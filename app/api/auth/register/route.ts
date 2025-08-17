@@ -1,16 +1,33 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import { userSchema } from "./dto";
+import { ZodError } from "zod";
+
 
 export async function POST(req: Request) {
+
   try {
     const body = await req.json();
-    const { email, password, fname, lname } = body;
 
-    //check if the payload contain both email and password
-    if (!email || !password) {
-      return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
+    // ✅ Validate input with Zod
+    const parsed = userSchema.safeParse(body);
+    if (!parsed.success) {
+      const error = parsed.error as ZodError;
+
+      return NextResponse.json(
+        {
+          errors: error.issues.map((err : any) => ({
+            path: err.path.join("."), // "email", "password", etc.
+            message: err.message,
+          })),
+        },
+        { status: 400 }
+      );
     }
+
+    const { email, password, fname, lname } = parsed.data;
+
 
     // check if user exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -20,6 +37,7 @@ export async function POST(req: Request) {
 
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
+
 
     // create user
     const user = await prisma.user.create({
@@ -35,7 +53,6 @@ export async function POST(req: Request) {
       {
         message: "User registered successfully",
         user: {
-          id: user.id,
           email: user.email,
           fname: user.fname,
           lname: user.lname,

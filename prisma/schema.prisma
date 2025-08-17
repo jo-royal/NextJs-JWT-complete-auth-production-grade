@@ -29,6 +29,8 @@ model User {
   fname    String?  // optional enforce first name on registration
   lname    String?  // optional enforce last name on registration
   role     Role   @default(user)
+  emailVerified Boolean @default(false)
+  account_is_active Boolean @default(true) // if you want account inactive until email verification, u can set false here.
   sessions Session[]
 }
 
