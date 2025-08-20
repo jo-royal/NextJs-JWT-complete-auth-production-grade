@@ -51,3 +51,10 @@ However, yes it does work but we talking about production level so lets add some
   - Testing:
     - /app/api/auth/register/
     - Works same but better error handling expecially the email formart.
+
+Email Verification:
+There are severals ways to Validates email base on requirements and scalabilty,, I will introduce you to my way,, it doesn't matter how big the enterprise is or what programming language you using, it will work perfect..
+
+however, whatever the method u chose, please don't use the db to store temporary verification code.. nah everything is wrong about it.. from populating db with unnessary data, to ridiculing db cause its db is suppose to be treated like a baby, meaningless cost and slow parformance, bad backend programming service,, i could go on and list 100 reasons, just don't do it. if u've taken some course and this is what u were thought,, drop that part now.
+
+Heres where you learn tools like redis, not only for caching but also understand how it works, how to really utilize it..

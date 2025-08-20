@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 
-export const userSchema = z.object({
+export const userDto = z.object({
   email: z.email("Invalid email format"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   fname: z.string().min(1, "First name is required"),
@@ -9,7 +9,7 @@ export const userSchema = z.object({
 
 });
 
-export type EventInput = z.infer<typeof userSchema>;
+export type UserInput = z.infer<typeof userDto>;
 
 // For PATCH requests (all optional)
-export const userUpdateSchema = userSchema.partial();
+export const userUpdateDto = userDto.partial();

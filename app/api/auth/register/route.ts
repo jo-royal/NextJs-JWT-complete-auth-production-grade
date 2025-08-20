@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
-import { userSchema } from "./dto";
+import { userDto } from "./dto";
 import { ZodError } from "zod";
 
 
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     // ✅ Validate input with Zod
-    const parsed = userSchema.safeParse(body);
+    const parsed = userDto.safeParse(body);
     if (!parsed.success) {
       const error = parsed.error as ZodError;
 
